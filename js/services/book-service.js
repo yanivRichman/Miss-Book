@@ -382,10 +382,13 @@ export const bookService = {
     save,
     getEmptybook,
     getById,
-    getBook,
+    addGoogleBook,
+    getBooks,
     getNextBookId,
-    getPrevBookId
+    getPrevBookId,
 };
+
+var gglBooks;
 
 function query() {
     return storageService.query(BOOKS_KEY);
@@ -402,23 +405,20 @@ function save(book) {
 
 function getById(bookId) {
     return storageService.get(BOOKS_KEY, bookId);
-    // return gBooks.find(book =>book.id === bookId)
 }
 
 function getNextBookId(bookId) {
-    return query()
-        .then(books => {
-            const idx = books.findIndex(book => book.id === bookId);
-            return (idx === books.length - 1) ? books[0].id : books[idx + 1].id;
-        });
+    return query().then((books) => {
+        const idx = books.findIndex((book) => book.id === bookId);
+        return idx === books.length - 1 ? books[0].id : books[idx + 1].id;
+    });
 }
 
 function getPrevBookId(bookId) {
-    return query()
-        .then(books => {
-            const idx = books.findIndex(book => book.id === bookId);
-            return (idx === 0) ? books[books.length - 1].id : books[idx - 1].id;
-        });
+    return query().then((books) => {
+        const idx = books.findIndex((book) => book.id === bookId);
+        return idx === 0 ? books[books.length - 1].id : books[idx - 1].id;
+    });
 }
 
 function getEmptybook() {
@@ -438,6 +438,30 @@ function _createbooks() {
     return books;
 }
 
-function getBook() {
-    console.log('Hi');
+function addGoogleBook(newBook) {
+    var gglBook = {
+        title: newBook.volumeInfo.title,
+        subtitle: 'Lorem ipsum dolor sit amet',
+        language: newBook.volumeInfo.language,
+        authors: newBook.volumeInfo.authors,
+        description: newBook.volumeInfo.description,
+        thumbnail: newBook.volumeInfo.imageLinks.thumbnail,
+        categories: ['computer'],
+        pageCount: newBook.volumeInfo.pageCount,
+        listPrice: {
+            currencyCode: 'EUR',
+            amount: 120,
+            isOnSale: true,
+        },
+    };
+    return storageService.post(BOOKS_KEY, gglBook);
+}
+
+function getBooks(bName) {
+    console.log('bName', bName);
+    const Url = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${bName}`;
+    return axios.get(Url).then((res) => {
+        gglBooks = res.data.items;
+        return res.data.items;
+    });
 }
