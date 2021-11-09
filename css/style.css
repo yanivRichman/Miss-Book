@@ -1,0 +1,132 @@
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+}
+
+body {
+    margin: 0;
+}
+
+button{
+    font-size: 20px;
+}
+
+.home-img{
+    height: 100%; 
+} 
+
+/* header */
+
+.app-header {
+    padding: 10px;
+    height: 5vh;
+    background-color: lightslategray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* book-app */
+
+.app-main {
+    height: 90vh;
+    /* background-color: lightblue; */
+}
+
+/* filter */
+
+.book-filter{
+    padding: 20px;
+    background-color: lightseagreen;
+}
+
+/* details */
+
+.book-details{
+    padding: 20px;
+    background-color: lightgreen;
+    text-align: center;
+}
+
+/* edit */
+
+.book-edit{
+    background-color: lightcoral;
+    padding: 20px;
+}
+
+/* list */
+
+.book-list {
+    margin: 0;
+    padding: 20px;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* preview */
+
+.book-preview-container {
+    font-size: 20px;
+    padding: 10px;
+    border: 1px solid black;
+    height: 150px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.about-page-text {
+    padding: 10px;
+}
+
+.red{
+    color: red;
+}
+
+.green{
+    color: green;
+}
+
+/* footer */
+
+.app-footer {
+    padding: 10px;
+    height: 5vh;
+    background-color: lightslategray;
+}
+
+
+/* user msg */
+
+.user-msg {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    padding: 10px;
+}
+
+.success {
+    background-color: rgb(27, 180, 27);
+}
+
+.error {
+    background-color: red;
+}
+
+/* links */
+
+.router-link-exact-active {
+    color: green
+}
+
+.active-link {
+    color: red;
+}
