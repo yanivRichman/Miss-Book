@@ -5,12 +5,15 @@ export default {
     template: `
         <section v-if="book" class="book-details app-main">
             <h3>Book Details:</h3>
+            <p>Title : {{book.title}}</p>
             <p>Page Count : {{pageCount}}</p>
             <p>Published Date : {{publishedDate}}</p>
             <p>Price : <span :class="priceClass">{{this.book.listPrice.amount}} {{this.book.listPrice.currencyCode}}</span></p>
             <p>SALE? : {{isSale}}</p>
             <long-text :description="book.description"></long-text>
+            <router-link :to="'/book/'+prevBookId">< previes book </router-link>
             <button @click="onClose" >X</button>
+            <router-link :to="'/book/'+nextBookId">Next book ></router-link>
         </section>
     `,
         components: {
@@ -18,7 +21,9 @@ export default {
         },
     data() {
         return {
-            book: null
+            book: null,
+            nextBookId: null
+
         };
     },
     created() {
@@ -29,6 +34,20 @@ export default {
     methods:{
         onClose(){
             this.$router.push('/book')
+        }
+    },
+    watch: {
+        '$route.params.bookId': {
+            handler() {
+                const { bookId } = this.$route.params;
+                bookService.getById(bookId)
+                    .then(book => this.book = book);
+                bookService.getNextBookId(bookId)
+                    .then(bookId => this.nextBookId = bookId);
+                bookService.getPrevBookId(bookId)
+                    .then(bookId => this.prevBookId = bookId);
+            },
+            immediate: true
         }
     },
     computed: {
