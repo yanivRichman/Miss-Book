@@ -4,6 +4,7 @@ export default {
         <div class="book-preview">
             <p>Title : {{book.title}}</p>
             <p>Price: {{book.listPrice.amount}}{{currencyIcon}}</p>
+            <!-- <pre> {{book.listPrice}} </pre> -->
         </div>
     `,
     computed: {

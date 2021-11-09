@@ -381,7 +381,8 @@ export const bookService = {
     remove,
     save,
     getEmptybook,
-    getById
+    getById,
+    getBook,
 };
 
 function query() {
@@ -419,5 +420,6 @@ function _createbooks() {
     return books;
 }
 
-
-
+function getBook() {
+    console.log('Hi');
+}
